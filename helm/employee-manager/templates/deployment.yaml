@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "employee-manager.fullname" . }}
+  labels:
+    {{- include "employee-manager.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "employee-manager.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "employee-manager.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy}}
+          ports:
+            - containerPort: {{ .Values.service.targetPort }}
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: {{ .Values.spring.profiles.active | quote }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.health.path }}
+              port: {{ .Values.service.targetPort}}
+            initialDelaySeconds: {{ .Values.health.initialDelay }}
+            periodSeconds: {{ .Values.health.period }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.health.path }}
+              port: {{ .Values.service.targetPort }}
+            initialDelaySeconds: 30
+            periodSeconds: 15
