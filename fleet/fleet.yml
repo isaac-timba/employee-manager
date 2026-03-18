@@ -1,0 +1,11 @@
+defaultNamespace: employee-ns
+
+helm:
+  releaseName: employee-manager
+  chart: helm/employee-manager
+  values:
+    replicaCount: 2
+    image: 
+      repository: ghcr.io/isaac-timba/employee-maager
+      tag: latest
+      pullPolicy: Always
