@@ -2,7 +2,7 @@ namespace: employee-ns
 
 helm:
   releaseName: employee-manager
-  chart: ../helm/employee-manager
+  chart: ./helm/employee-manager
   values:
     replicaCount: 2
     image: 
