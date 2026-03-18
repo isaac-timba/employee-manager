@@ -1,4 +1,4 @@
-defaultNamespace: employee-ns
+namespace: employee-ns
 
 helm:
   releaseName: employee-manager
@@ -6,6 +6,6 @@ helm:
   values:
     replicaCount: 2
     image: 
-      repository: ghcr.io/isaac-timba/employee-maager
+      repository: ghcr.io/isaac-timba/employee-manager
       tag: latest
       pullPolicy: Always
