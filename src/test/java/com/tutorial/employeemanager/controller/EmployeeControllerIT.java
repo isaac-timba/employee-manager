@@ -132,7 +132,8 @@ public class EmployeeControllerIT {
         Employee saved = employeeRepository.save(
                 Employee.builder()
                         .firstName("Del")
-                        .firstName("Me")
+                        .lastName("Me")
+                        .email("del@me.com")
                         .department("Ops")
                         .build()
         );
