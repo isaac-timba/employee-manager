@@ -60,5 +60,18 @@ jobs:
           push: true
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}    
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+      
+      - name: Update fleet.yml with new image tag
+        run: |
+          sed -i "s|tag:.*|tag: ${{ github.sha }}|" fleet.yml
+
+      - name: Commit and push updated fleet.yml
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add fleet.yml
+          git commit -m "Update image tag to ${{ github.sha }}"
+          git push
+
 
