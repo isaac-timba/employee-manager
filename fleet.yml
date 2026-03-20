@@ -7,5 +7,5 @@ helm:
     replicaCount: 1
     image: 
       repository: ghcr.io/isaac-timba/employee-manager
-      tag: "${{ github.sha }}"
+      tag: 479fed9f028542cdae54d7e99f06ee72d1470782
       pullPolicy: Always
